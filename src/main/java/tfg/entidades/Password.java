@@ -1,6 +1,5 @@
 package tfg.entidades;
 
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -8,6 +7,7 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +25,8 @@ public class Password {
 	private Integer id;
 	
 	private String password;
+	
+	@Column(length=256)
 	private String sal;
 	
 	@OneToOne(mappedBy="password")
@@ -36,6 +38,10 @@ public class Password {
 	private static final int iteraciones = 50000;
 	@Transient
 	private static final int numBytes = 128;
+	
+	public Password() {
+		
+	}
 	
 	public Password(String passTextoPlano){
 		sal = generarSal();
